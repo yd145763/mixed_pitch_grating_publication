@@ -20,11 +20,11 @@ from scipy import interpolate
 from scipy.signal import chirp, find_peaks, peak_widths
 import statistics
 
-
-df = pd.read_csv(r"C:\Users\limyu\Google Drive\different mixture\different mixture 4 beams further from ref and a beam 3800-3900cnts 4x 90mA.csv",header=None, sep=",")
+url = "https://raw.githubusercontent.com/yd145763/mixed_pitch_grating_publication/main/different%20mixture%204%20beams%20near%20ref%20and%20a%20beam%203800-3900cnts%204x%2090mA.csv"
+df = pd.read_csv("https://raw.githubusercontent.com/yd145763/mixed_pitch_grating_publication/main/different%20mixture%204%20beams%20near%20ref%20and%20a%20beam%203800-3900cnts%204x%2090mA.csv")
     
 df=df.dropna(axis=1)
-df_r = df.iloc[14:38, 214:248]
+df_r = df.iloc[228:252, 210:244]
 df_r = df_r.reset_index(drop=True)
 df_r.columns = range(df_r.shape[1])
 H = np.arange(0,24,1)
@@ -37,8 +37,8 @@ row_idxs, col_idxs = np.where(df_r == max_df_r)
 print(len(row_idxs))
 print(len(col_idxs))
 for row_idx, col_idx in zip(row_idxs, col_idxs):
-    print(row_idx)
-    print(col_idx)
+    print("widest row index", row_idx)
+    print("widest column index", col_idx)
     print(" ")
 xr = np.linspace(0, 990, num=34)
 xr = xr/20
@@ -51,7 +51,7 @@ Xr,Yr = np.meshgrid(xr,yr)
 df_r = df_r.to_numpy()
 fig = plt.figure(figsize=(8, 4))
 ax = plt.axes()
-cp=ax.contourf(Xr,Yr,df_r, 200, zdir='z', offset=-100, cmap='hot')
+cp=ax.contourf(Xr,Yr,df_r, 200, zdir='z', offset=-100, cmap='jet')
 clb=fig.colorbar(cp, ticks=(np.arange(0, colorbarmax, 200)).tolist())
 clb.ax.set_title('Photon/s', fontweight="bold")
 for l in clb.ax.yaxis.get_ticklabels():
@@ -80,7 +80,7 @@ V = np.arange(0,34,1)
 V1,H1 = np.meshgrid(V,H)
 fig = plt.figure(figsize=(7, 4))
 ax = plt.axes()
-cp=ax.contourf(V1,H1,df_r, 200, zdir='z', offset=-100, cmap='hot')
+cp=ax.contourf(V1,H1,df_r, 200, zdir='z', offset=-100, cmap='jet')
 ax.axhline(y=int(row_idx), color='r')
 ax.axvline(x=int(col_idx), color='g')
 plt.show()
