@@ -38,18 +38,7 @@ horizontal_full = []
 filename = []
 max_field = []
 
-ix1 = 12
-iy1 = 20
-ix2 = 12
-iy2 = 20
-ix3 = 13
-iy3 = 20
-ix4 = 11
-iy4 = 16
-ix5 = 13
-iy5 = 15
-ix6 = 12
-iy6 = 16
+
 
 
 def wholegraph(url):
@@ -118,12 +107,6 @@ def wholegraph(url):
 
 def everything(horline1, horline2, verline1, verline2, url, column_name):
     df = pd.read_csv(url, sep=",")
-    df_r1 = df.iloc[horline1:horline2, verline1:verline2]
-    df_r1 = df_r1.reset_index(drop=True)
-    df_r1.columns = range(df_r1.shape[1])
-    df_r1_hor = df_r1.iloc[ix1,:]
-    df_r1_hor = df_r1_hor - min(df_r1_hor)
-    
     df_r = df.iloc[horline1:horline2, verline1:verline2]
     df_r = df_r.reset_index(drop=True)
     df_r.columns = range(df_r.shape[1])
@@ -140,6 +123,13 @@ def everything(horline1, horline2, verline1, verline2, url, column_name):
         print("widest row index", row_idx)
         print("widest column index", col_idx)
         print(" ")
+    df_r1 = df.iloc[horline1:horline2, verline1:verline2]
+    df_r1 = df_r1.reset_index(drop=True)
+    df_r1.columns = range(df_r1.shape[1])
+    df_r1_hor = df_r1.iloc[row_idx,:]
+    df_r1_hor = df_r1_hor - min(df_r1_hor)
+    
+
     
     x1 = np.linspace(0, 990, num=34)
     x1 = x1/20
@@ -147,7 +137,7 @@ def everything(horline1, horline2, verline1, verline2, url, column_name):
     y1 = y1/20
     colorbarmax = df_r1.max().max()
     colorbartick = 9
-    max_field.append(df_r1.iloc[ix1, iy1])
+    max_field.append(df_r1.iloc[row_idx, col_idx])
     
     #contour plot for single beam
     X1,Y1 = np.meshgrid(x1,y1)
@@ -409,7 +399,7 @@ def everything(horline1, horline2, verline1, verline2, url, column_name):
     master_data_verticle[column_name] = df_r1_ver
     
     df_r1 = pd.DataFrame(df_r1)
-    df_r1_ver = df_r1.iloc[:,iy1]
+    df_r1_ver = df_r1.iloc[:,col_idx]
     df_r1_ver = df_r1_ver - min(df_r1_ver)
     
     
@@ -473,7 +463,7 @@ url2 = "https://raw.githubusercontent.com/yd145763/mixed_pitch_grating_publicati
 wholegraph(url2)
 
 #r3
-everything(227, 251, 211, 245, url2, "grating12_11pitch8_2")
+everything(222, 246, 216, 250, url2, "grating12_11pitch8_2")
 
 #r4
 everything(155, 179, 213, 247, url2, "grating12_11pitch6_4")
