@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Created on Thu Aug 24 20:52:27 2023
+
+@author: ADMIN
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Created on Fri Jan 20 17:21:33 2023
 
 @author: limyu
@@ -50,7 +57,7 @@ ix6 = 12
 iy6 = 16
 
 url = "https://raw.githubusercontent.com/yd145763/mixed_pitch_grating_publication/main/different%20mixture%204%20beams%20near%20ref%20and%20a%20beam%203800-3900cnts%204x%2090mA.csv"
-df = pd.read_csv("https://raw.githubusercontent.com/yd145763/mixed_pitch_grating_publication/main/different%20mixture%204%20beams%20near%20ref%20and%20a%20beam%203800-3900cnts%204x%2090mA.csv")
+df = pd.read_csv(url, sep=",")
 
 
 
@@ -775,15 +782,15 @@ print("r2 vertical MSE", mse)
 
 
 url = "https://raw.githubusercontent.com/yd145763/mixed_pitch_grating_publication/main/different%20mixture%204%20beams%20further%20from%20ref%20and%20a%20beam%203800-3900cnts%204x%2090mA.csv"
-df = pd.read_csv(r"C:\Users\limyu\Google Drive\different mixture\different mixture 4 beams further from ref and a beam 3800-3900cnts 4x 90mA.csv",header=None, sep=",")
+df = pd.read_csv(url, sep=",")
    
 df=df.dropna(axis=1)
 print(df)
 
 
-x = np.linspace(0, 9570, num=320)
+x = np.linspace(0, 9570, num=df.shape[1])
 x = x/20
-y = np.linspace(0, 7650, num=256)
+y = np.linspace(0, 7650, num=df.shape[0])
 y = y/20
 colorbarmax = df.max().max()
 colorbartick = 9
